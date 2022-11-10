@@ -1,22 +1,46 @@
 import argparse
+import re
 import pdfplumber
 
-# Vars
-parser = argparse.ArgumentParser()
-parser.add_argument('pdf_file')
+def get_draw_results_by_line(pdf):
+    results = []
+    for page in pdf.pages:
+        area_type_results = page.search('(\d{3})\s{2,}(\d)\s{2,}(\w.*?)\s{2,}(\d)\s{2,}(\d{2,})\s{2,}(\d)\s{2,}(\d)\s')
+        for line in area_type_results:
+            results.append(line['text'].rstrip())
+    return results
 
-args = parser.parse_args()
+def parse_draw_results_by_line(result_lines):
+    parsed_log = {}
+    parsed_logs = []
+    for i in result_lines:
+        parsed_log['hunt_area'] = re.search('(^\d{3})', i).group(0)
+        parsed_log['hunt_type'] = re.search('^\d{3}\s{2,}(\d{1,})\s{2,}', i).group(1)
+        parsed_log['description'] = re.search('\s{2,}([A-Z].+?)\s{2,}', i).group(1)
+        parsed_logs.append(parsed_log.copy())
 
-try:
-    pdf_file = args.pdf_file
+    return parsed_logs
 
-except TypeError as e:
+def main():
+    # Vars
+    parser = argparse.ArgumentParser()
+    parser.add_argument('pdf_file')
 
-    print('Error: arguments must be characters')
-    parser.print_help()
-    sys.exit(1)
+    args = parser.parse_args()
 
-with pdfplumber.open(pdf_file) as pdf:
-    first_page = pdf.pages[0]
-    print(first_page.extract_text())
+    try:
+        pdf_file = args.pdf_file
 
+    except TypeError as e:
+
+        print('Error: arguments must be characters')
+        parser.print_help()
+        sys.exit(1)
+
+    with pdfplumber.open(pdf_file) as pdf:
+        lines = get_draw_results_by_line(pdf)
+        parsed_lines = parse_draw_results_by_line(lines)
+
+        print(parsed_lines)
+
+main()
