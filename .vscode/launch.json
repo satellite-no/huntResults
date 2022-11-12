@@ -11,7 +11,7 @@
             "program": "huntResults/huntResults.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["tests/ram.pdf"]
+            "args": ["tests/bison.pdf"]
         }
     ]
 }
