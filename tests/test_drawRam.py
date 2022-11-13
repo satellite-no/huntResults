@@ -17,13 +17,13 @@ with pdfplumber.open(pdf_file) as pdf:
         assert parsed_lines[10]['description'] == 'any ram'
 
     def test_ramDrawQuota(): 
-        assert parsed_lines[10]['total_quota'] == '1'
+        assert parsed_lines[10]['total_quota'] == 1
 
     def test_ramDrawFirst(): 
-        assert parsed_lines[10]['first_choice_applicants'] == '713'
+        assert parsed_lines[10]['first_choice_applicants'] == 713
 
     def test_ramDrawSecond(): 
-        assert parsed_lines[10]['second_choice_applicants'] == '0'
+        assert parsed_lines[10]['second_choice_applicants'] == 0
 
     def test_ramDrawThird(): 
-        assert parsed_lines[10]['third_choice_applicants'] == '0'
+        assert parsed_lines[10]['third_choice_applicants'] == 0

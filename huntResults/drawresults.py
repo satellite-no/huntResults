@@ -22,10 +22,10 @@ class DrawResults:
             parsed_log['hunt_area'] = parsed_items.group(1)
             parsed_log['hunt_type'] = parsed_items.group(2)
             parsed_log['description'] = parsed_items.group(3).lower()
-            parsed_log['total_quota'] = parsed_items.group(4)
-            parsed_log['first_choice_applicants'] = parsed_items.group(5)
-            parsed_log['second_choice_applicants'] = parsed_items.group(6)
-            parsed_log['third_choice_applicants'] = parsed_items.group(7)
+            parsed_log['total_quota'] = int(parsed_items.group(4))
+            parsed_log['first_choice_applicants'] = int(parsed_items.group(5))
+            parsed_log['second_choice_applicants'] = int(parsed_items.group(6))
+            parsed_log['third_choice_applicants'] = int(parsed_items.group(7))
             parsed_logs.append(parsed_log.copy())
 
         return parsed_logs
