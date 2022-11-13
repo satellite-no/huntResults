@@ -1,5 +1,5 @@
 import argparse
-import drawresults
+from huntResults import drawresults
 import pdfplumber
 
 def main():
