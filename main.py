@@ -19,8 +19,8 @@ def main():
         sys.exit(1)
 
     with pdfplumber.open(pdf_file) as pdf:
-        results = drawresults.DrawResults(pdf)
-        parsed_lines = results.parse_draw_results_by_line()
+        results = drawresults.PPResults(pdf)
+        parsed_lines = results.parse_pp_results_by_line()
 
         print(parsed_lines)
 
